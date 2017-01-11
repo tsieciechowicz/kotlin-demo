@@ -1,20 +1,37 @@
 package pl.digitalvirgo.rest
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import pl.digitalvirgo.dao.entity.Customer
 import pl.digitalvirgo.dao.repositories.CustomerRepository
+import pl.digitalvirgo.dao.repositories.ProductRepository
+import java.util.logging.Logger
 
 /**
  * Created by tsieciechowicz on 10.01.2017.
  */
-@RestController
-class CustomerController (val repository: CustomerRepository) {
+@RestController("/customer")
+class CustomerController (val customerRepository: CustomerRepository, val productRepository: ProductRepository ) {
+
+    val log = LoggingFactory.getLogger("com.example.app")
 
     @GetMapping("/")
-    fun findAll() = repository.findAll()
+    fun findAll() = customerRepository.findAll()
 
-    @GetMapping("/{name}")
-    fun findByLastName(@PathVariable name:String)
-            = repository.findByLastName(name)
+    @GetMapping("/name/{name}")
+    fun findByName(@PathVariable name:String) {
+         Logger.getLogger("")
+    }
+            = customerRepository.findByName(name)
+
+    @PostMapping("/save")
+    fun save(@RequestBody customer: Customer)
+            = customerRepository.save(customer)
+
+    @PostMapping("/update")
+    fun update(@RequestBody customer: Customer)
+            = customerRepository.save(customer)
+
+    @PostMapping("/delete")
+    fun delete(@RequestBody customer: Customer)
+            = customerRepository.delete(customer.id)
 }

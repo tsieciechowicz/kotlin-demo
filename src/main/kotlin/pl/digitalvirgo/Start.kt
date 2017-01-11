@@ -12,6 +12,4 @@ class Demo
 
 fun main(args: Array<String>){
     SpringApplication.run(Demo::class.java, *args)
-    val customer = Customer(1, "tomasz.sieciechowicz@avantis.pl");
-    println(customer);
 }
